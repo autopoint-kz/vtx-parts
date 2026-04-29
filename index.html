@@ -402,6 +402,7 @@
 
   <script>
     const phoneNumber = '77071020347';
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyFGPM8hIzrF4ZwrTGEsua_lIhy-qmoEDeKsQ2RnO5BkfjMyLMEiTuyLAzPcswBwkFvvA/exec"; 
     document.getElementById('leadForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const data = {
@@ -421,7 +422,15 @@
         `Деталь: ${encodeURIComponent(data.part)}%0A` +
         `Телефон: ${encodeURIComponent(data.phone)}%0A` +
         `Комментарий: ${encodeURIComponent(data.comment)}`;
-      window.open(`https://wa.me/${phoneNumber}?text=${text}`, '_blank');
+     fetch(SCRIPT_URL, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(data)
+});
+
+window.open(`https://wa.me/${phoneNumber}?text=${text}`, '_blank'); 
     });
   </script>
 </body>
